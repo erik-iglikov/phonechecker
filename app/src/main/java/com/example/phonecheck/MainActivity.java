@@ -1,7 +1,6 @@
 package com.example.phonecheck;
 
 import android.Manifest;
-import android.content.Context;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -11,9 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
-import android.telephony.PhoneStateListener;
-import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
@@ -35,10 +31,12 @@ public class MainActivity extends AppCompatActivity {
                 new String[]{Manifest.permission.READ_CALL_LOG},
                 1);
 
-        MyPhoneStateListener phoneListener = new MyPhoneStateListener();
-        TelephonyManager telephonyManager = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-//        System.out.println(TelephonyManager.hasCarrierPrivileges());
-        telephonyManager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
+
+        /** Second option to get phone number **/
+//        MyPhoneStateListener phoneListener = new MyPhoneStateListener();
+//        TelephonyManager telephonyManager = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+////        System.out.println(TelephonyManager.hasCarrierPrivileges());
+//        telephonyManager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -50,30 +48,34 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    class MyPhoneStateListener extends PhoneStateListener {
-
-        public Boolean phoneRinging = false;
-
-        public void onCallStateChanged(int state, String incomingNumber) {
-
-            switch (state) {
-                case TelephonyManager.CALL_STATE_IDLE:
-                    Log.d("DEBUG", "IDLE");
-                    phoneRinging = false;
-                    break;
-                case TelephonyManager.CALL_STATE_OFFHOOK:
-                    Log.d("DEBUG", "OFFHOOK");
-                    phoneRinging = false;
-                    break;
-                case TelephonyManager.CALL_STATE_RINGING:
-                    Log.d("DEBUG", "RINGING ->" + incomingNumber);
-                    phoneRinging = true;
-
-                    break;
-            }
-        }
-    }
-
+    /**
+     * Second option to get phone number
+     * @param menu
+     * @return
+     */
+//    static class MyPhoneStateListener extends PhoneStateListener {
+//
+//        public Boolean phoneRinging = false;
+//
+//        public void onCallStateChanged(int state, String incomingNumber) {
+//
+//            switch (state) {
+//                case TelephonyManager.CALL_STATE_IDLE:
+//                    Log.d("DEBUG", "IDLE");
+//                    phoneRinging = false;
+//                    break;
+//                case TelephonyManager.CALL_STATE_OFFHOOK:
+//                    Log.d("DEBUG", "OFFHOOK");
+//                    phoneRinging = false;
+//                    break;
+//                case TelephonyManager.CALL_STATE_RINGING:
+//                    Log.d("DEBUG", "RINGING ->" + incomingNumber);
+//                    phoneRinging = true;
+//
+//                    break;
+//            }
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
